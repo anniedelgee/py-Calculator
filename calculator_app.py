@@ -14,7 +14,7 @@ Part 2
 
 Now extend your program to give the user the option to either enter two numbers and an operator, like before, 
     OR
-to read all the equations from a new txt file (the user should add the name of the txt file as an input)
+to read all the equations from a new txt file (the user should add the name of the txt file as an input) --read()
     AND
 print out all the equations together with the results.
 
@@ -28,54 +28,69 @@ import math
 # get user input- numbers
 print("This application is a calculator that will take two values and an operator ( +, -, *, / ), compose an equation and return the solution.")
 
-#VARIBALES START
-# first number
-first_val= float(input("Please enter your first value: "))
-#print(first_val)
+# give user the option to execute the calculator function or create and read new text file. 
 
-#second number
-second_val= float(input("Please enter your second value: "))
-#print(second_val)
-
-# operator
-operator= input("What operator are you carrying out? Enter calculation symbol: ")
-#print(operator)
-
-#VARIBALES END
 
 #create text file
 file = open("calculator.txt", "w")
 
-# create operation
-if (operator == '+'):
-    answer= (first_val + second_val)
-    print(" The sum of " + str(first_val) + " and " + str(second_val) + " is " + str(round(answer, 2)))
-elif (operator == '-'):
-    answer= (first_val - second_val)
-    print(" The difference between " + str(first_val) + " and " + str(second_val) + " is " + str(round(answer, 2)))
-elif(operator == '*'):
-    answer= (first_val * second_val)
-    print(" The product of " + str(first_val) + " and " + str(second_val) + " is " + str(round(answer, 2)))
-elif (operator == '/'):
-    answer= (first_val / second_val)
-    print(" The quotient of " + str(first_val) + " and " + str(second_val) + " is " + str(round(answer, 2)))
-else:
-    print("please enter valid numerical values and arithmetic operators. this is a calculator not chatgpt.")
+#VARIBALES START   
+def calculator():
+    # first number
+    try: 
+        first_val= float(input("Please enter your first value: "))
+        #second number
+        second_val= float(input("Please enter your second value: "))
+    except ValueError as ERROR:
+        print("Invalid value input \n")
+        print(ERROR)
+        print("\nTry Again")
+        return
 
- # convert values to represetnations to write to file. 
+    # operator
+    operator= input("What operation are you carrying out? Enter calculation symbol: ")
 
-first_val= repr(first_val)
-second_val = repr(second_val)
-operator= repr(operator)
-answer= repr(answer)
+    # create equations
+    if (operator == '+'):
+        answer= (first_val + second_val)
+        print(" The sum of " + str(first_val) + " and " + str(second_val) + " is " + str(round(answer, 2)))
+    elif (operator == '-'):
+        answer= (first_val - second_val)
+        print(" The difference between " + str(first_val) + " and " + str(second_val) + " is " + str(round(answer, 2)))
+    elif(operator == '*'):
+        answer= (first_val * second_val)
+        print(" The product of " + str(first_val) + " and " + str(second_val) + " is " + str(round(answer, 2)))
+    elif (operator == '/'):
+        try:
+            answer= (first_val / second_val)
+            print(" The quotient of " + str(first_val) + " and " + str(second_val) + " is " + str(round(answer, 2)))
+        except ZeroDivisionError as ERROR:
+            print("Invalid equation! Cannot divide by Zero\n")
+            print(ERROR)
+            print("\nTry again!")
+            return
+    else:
+        print("please enter valid numerical values and arithmetic operators.")
 
-file.write( first_val + operator + second_val + " = " + answer )
+# convert values to representations to write to file. 
 
-file.close
+    first_val= repr(first_val)
+    second_val = repr(second_val)
+    operator= repr(operator)
+    answer= repr(answer)
+    file.write( first_val + operator + second_val + " = " + answer )
+    file.close()
+
+while True:
+    calculator()
+    
+    
+
 
 
 
 # try/ exception blocks for operators
+
 #try/exception blocks for num 1
 #repeat for num 2
 
