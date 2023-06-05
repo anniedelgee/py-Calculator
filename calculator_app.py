@@ -105,14 +105,4 @@ def calculator():
 
 while True:
     intro()
-'''
-#try:
-#create text file
-#except FileNotFoundError as ERROR:
-print("The file that you are trying to open does not exist")
-print(ERROR)
-print("\n Try Again!")
-return
-'''
-
 
