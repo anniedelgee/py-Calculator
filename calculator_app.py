@@ -28,18 +28,38 @@ import math
 # get user input- numbers
 print("This application is a calculator that will take two values and an operator ( +, -, *, / ), compose an equation and return the solution.")
 
-# give user the option to execute the calculator function or create and read new text file. 
+#get user to decide what function they want to perfrom
+
+def intro():
+    user_choice = input("Enter 'Calc' to do a calculation or 'File' to read the results from a text file: ").lower()
+    if (user_choice == "calc"):
+        print("You chose calculator, now you'll need to enter your values and operator")
+        calculator()
+    elif (user_choice == "file"):
+        try:
+            user_file = open(input("Enter the name of your text file here: "), "r")
+            file_name = user_file.read()
+            print(file_name)
+        except FileNotFoundError as ERROR:
+            print("The file you are trying to open does not exist, please try agin")
+            print(ERROR)
+        
 
 
-#create text file
-file = open("calculator.txt", "w")
+# part2: read-file function
+# take input from user to create new text file and print out all equation wiht resuts
+#create file using user input
 
-#VARIBALES START   
+#Calculator function   
+
 def calculator():
+#create text file
+    file = open("calculator.txt", "w")
+
     # first number
     try: 
         first_val= float(input("Please enter your first value: "))
-        #second number
+        # second number
         second_val= float(input("Please enter your second value: "))
     except ValueError as ERROR:
         print("Invalid value input \n")
@@ -47,7 +67,7 @@ def calculator():
         print("\nTry Again")
         return
 
-    # operator
+    # operator input
     operator= input("What operation are you carrying out? Enter calculation symbol: ")
 
     # create equations
@@ -71,6 +91,7 @@ def calculator():
             return
     else:
         print("please enter valid numerical values and arithmetic operators.")
+        return
 
 # convert values to representations to write to file. 
 
@@ -81,18 +102,17 @@ def calculator():
     file.write( first_val + operator + second_val + " = " + answer )
     file.close()
 
+
 while True:
-    calculator()
-    
-    
-
-
-
-
-# try/ exception blocks for operators
-
-#try/exception blocks for num 1
-#repeat for num 2
-
+    intro()
+'''
+#try:
+#create text file
+#except FileNotFoundError as ERROR:
+print("The file that you are trying to open does not exist")
+print(ERROR)
+print("\n Try Again!")
+return
+'''
 
 
